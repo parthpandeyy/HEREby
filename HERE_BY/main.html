@@ -1,0 +1,110 @@
+HEREby
+
+<html lang="en">
+<head>      ...
+      <meta name="viewport" content="initial-scale=1.0,
+        width=device-width" />
+      <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
+        type="text/javascript" charset="utf-8"></script>
+      <script src="https://js.api.here.com/v3/3.1/mapsjs-core-legacy.js"
+        type="text/javascript" charset="utf-8"></script>
+      <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
+        type="text/javascript" charset="utf-8"></script>
+      <script src="https://js.api.here.com/v3/3.1/mapsjs-service-legacy.js"
+        type="text/javascript" charset="utf-8"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEREby WebApp</title>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
+  type="text/javascript" charset="utf-8">
+</script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
+  type="text/javascript" charset="utf-8"></script>
+<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+<!-- <body>
+    <body>
+        <div style="width: 1560px; height: 720px" id="mapContainer"></div>
+        <script>
+        //   // Initialize the platform object
+        //   var platform = new H.service.Platform({
+        //     'apikey': '4zJYRgz-osHyAc6ObvqJtXCgSua58DYWWBfpkidqs5w'
+        //   });
+    
+        //   // Obtain the default map types from the platform object
+        //   var maptypes = platform.createDefaultLayers();
+    
+        //   // Instantiate (and display) the map
+        //   var map = new H.Map(
+        //     document.getElementById('mapContainer'),
+        //     maptypes.vector.normal.map,
+        //     {
+        //       zoom:12,
+        //       center: { lng: 77.25, lat: 28.6 }
+        //     });
+        // </script> -->
+<head>
+  <title>Simple HERE Map</title>
+  <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+  <style>
+     
+     html, body { border: 2; margin: 5; padding: 50; }
+     map { height: 90vh; width: 90vw; }
+     
+  </style>
+</head>
+<body style="background-color:black;">
+  <a href="/index.html"><img src="/pic1.png" alt="" width="100"></a> <br>
+  
+  <div id="map"></div>
+  <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+  <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+  <script src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+  <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+  <script>
+    
+    var platform = new H.service.Platform({
+  'apikey': '{4zJYRgz-osHyAc6ObvqJtXCgSua58DYWWBfpkidqs5w}'});
+  
+     const defaultLayers = platform.createDefaultLayers();
+     const map = new H.Map(document.getElementById('map'),
+        defaultLayers.vector.normal.map, {
+        center: { lat: 21.5, lng: 79 },
+        zoom: 5,
+        pixelRatio: window.devicePixelRatio || 1
+     });
+     window.addEventListener('resize', () => map.getViewPort().resize());
+     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+     const ui = H.ui.UI.createDefault(map, defaultLayers);
+     var router = platform.getRoutingService(),
+  routeRequestParams = {
+    mode: 'fastest;car',
+    representation: 'display',
+    routeattributes: 'waypoints,summary,shape,legs',
+    maneuverattributes: 'direction,action',
+    waypoint0: '28.45,77.12',
+    waypoint1: '28.47,77.55,'  
+  };
+
+
+router.calculateRoute(
+  routeRequestParams,
+  onSuccess,
+  onError
+);
+     //Begin geocoding
+     const searchText = 'Pune';
+     const geocoder = platform.getGeocodingService();
+     geocoder.geocode({ searchText }, result => {
+        const location = result.Response.View[0].Result[0].Location.DisplayPosition;
+        const { Latitude : lat, Longitude: lng } = location;
+        const marker = new H.map.Marker({ lat, lng });
+        map.addObject(marker);
+        var platform = new H.service.Platform({'apikey': '{4zJYRgz-osHyAc6ObvqJtXCgSua58DYWWBfpkidqs5w}'
+});
+
+     });
+  </script>
+  </body>
+</html>
